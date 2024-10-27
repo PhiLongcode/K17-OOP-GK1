@@ -14,7 +14,16 @@ public class SachController {
 	    public SachController() {
 	        danhSachSach = new ArrayList<>();
 	    }
-
+	    
+	    public boolean kiemTraMaSachTrung(int maSach) {
+	        for( Sach sach: danhSachSach) {
+	        	if(sach.getMaSach() == maSach) {
+	        		return true;
+	        	}
+	        }
+	        return false;
+	    }
+	    
 		public void themSach(Sach sach) {
 	        danhSachSach.add(sach);
 	    }

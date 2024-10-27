@@ -75,25 +75,31 @@ public class MenuUIConsole {
 	        System.out.print("Nhập mã sách: ");
 	        int maSach = scanner.nextInt();
 	        scanner.nextLine();
-	        
-	        System.out.print("Nhập ngày nhập (yyyy-MM-dd): ");
-	        String ngayNhap = scanner.nextLine();
-	        
-	        System.out.print("Nhập đơn giá: ");
-	        double donGia = scanner.nextDouble();
-	        System.out.print("Nhập số lượng: ");
-	        int soLuong = scanner.nextInt();
-	        scanner.nextLine(); 
-	        System.out.print("Nhập nhà xuất bản: ");
-	        String nhaXuatBan = scanner.nextLine();
+	        boolean kiemTraMaSach = quanLySachController.kiemTraMaSachTrung(maSach);
+	        if(kiemTraMaSach) {
+	        	System.out.println("mã đã tồn tại trong danh sách");
+	        }else {
+	        	 System.out.print("Nhập ngày nhập (yyyy-MM-dd): ");
+	 	        String ngayNhap = scanner.nextLine();
+	 	        
+	 	        System.out.print("Nhập đơn giá: ");
+	 	        double donGia = scanner.nextDouble();
+	 	        System.out.print("Nhập số lượng: ");
+	 	        int soLuong = scanner.nextInt();
+	 	        scanner.nextLine(); 
+	 	        System.out.print("Nhập nhà xuất bản: ");
+	 	        String nhaXuatBan = scanner.nextLine();
 
-	       return new Sach(maSach, ngayNhap, donGia, soLuong, nhaXuatBan);
+	 	       return new Sach(maSach, ngayNhap, donGia, soLuong, nhaXuatBan);
+	        }
+	       return null;
 	       
 	    }
 
 	    private void themSachGiaoKhoa() {
-	        Sach thongTinSach = nhapThongTinSachCoBan(); // Nhập thông tin cơ bản
-	        System.out.print("Tình trạng sách (1: mới, 2: cũ): ");
+	        Sach thongTinSach = nhapThongTinSachCoBan(); 
+	        if(thongTinSach !=null) {
+	        	 System.out.print("Tình trạng sách (1: mới, 2: cũ): ");
             int tinhTrang = scanner.nextInt();
             
 
@@ -109,11 +115,15 @@ public class MenuUIConsole {
 
 	        quanLySachController.themSach(sachGiaoKhoa);
 	        System.out.println("Đã thêm sách giáo khoa thành công.");
+	        }
+	        return;
+	       
 	    }
 
 	    private void themSachThamKhao() {
 	    	Sach thongTinSach = nhapThongTinSachCoBan(); 
-	        System.out.print("Nhập thuế: ");
+	    	if(thongTinSach !=null) {
+	    		 System.out.print("Nhập thuế: ");
 	        double thue = scanner.nextDouble();
 
 	        
@@ -128,19 +138,31 @@ public class MenuUIConsole {
 
 	        quanLySachController.themSach(sachThamKhao);
 	        System.out.println("Đã thêm sách tham khảo thành công.");
+	    	}
+	    	return;
+	       
 	    }
 	    private void xoaSach() {
 	        System.out.print("Nhập mã sách cần xóa: ");
 	        int maSach = scanner.nextInt();
-	        quanLySachController.xoaSach(maSach);
-	        System.out.println("Đã xóa sách có mã " + maSach);
+	        boolean kiemTraMaSach = quanLySachController.kiemTraMaSachTrung(maSach);
+	        if(kiemTraMaSach) {
+	        	quanLySachController.xoaSach(maSach);
+	        	System.out.println("Đã xóa sách có mã " + maSach);
+	        	return;
+	        }else {
+	        	System.out.println("Mã sách không được tìm thấy trong danh sách");
+	        }
+	        
 	    }
 
 	    private void suaSach() {
 	        System.out.print("Nhập mã sách cần sửa: ");
 	        int maSach = scanner.nextInt();
-	        System.out.println("Nhập thông tin mới cho sách:");
-	   
+	        boolean kiemTraMaSach = quanLySachController.kiemTraMaSachTrung(maSach);
+	        if(kiemTraMaSach) {
+	        	 System.out.println("Nhập thông tin mới cho sách:");
+	        scanner.nextLine();
 	        System.out.print("Nhập ngày nhập (yyyy-MM-dd): ");
 	        String ngayNhap = scanner.nextLine();
 	        
@@ -166,6 +188,11 @@ public class MenuUIConsole {
 	        }
 	        quanLySachController.suaSach(maSach, sachMoi);
 	        System.out.println("Đã sửa sách có mã " + maSach);
+	        }else {
+	        	System.out.println("Không tìm thấy mã trong danh sách");
+	        }
+	        
+	       
 	    }
 
 	    private void timKiemSach() {
