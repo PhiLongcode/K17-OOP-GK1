@@ -4,12 +4,13 @@ package appQuanLySach;
 import java.util.Scanner;
 
 import controller.SachController;
+import entity.Ngay;
 import entity.Sach;
 import entity.SachGiaoKhoa;
 import entity.SachThamKhao;
 
 public class MenuUIConsole {
-		private Scanner scanner = new Scanner(System.in);
+		private Scanner sc = new Scanner(System.in);
 	    private SachController quanLySachController = new SachController();
 	    
 	    public void hienThiMenu() {
@@ -27,8 +28,8 @@ public class MenuUIConsole {
 	            System.out.println("9. In danh sách tất cả sách");
 	            System.out.println("0. Thoát");
 	            System.out.print("Chọn một chức năng: ");
-	            choice = scanner.nextInt();
-	            scanner.nextLine(); // Clear the buffer
+	            choice = sc.nextInt();
+	            sc.nextLine(); // Clear the buffer
 
 	            switch (choice) {
 	                case 1:
@@ -50,7 +51,7 @@ public class MenuUIConsole {
 	                	tinhTongThanhTienTheoLoai();
 	                    break;
 	                case 7:
-	                    tinhTrungBinhDonGiaSachThamKhao();
+	                    tinhTrungBinhDonGiaSTK();
 	                    break;
 	                case 8:
 	                    xuatSachGiaoKhoaTheoNXB();
@@ -67,28 +68,36 @@ public class MenuUIConsole {
 	            }
 	        } while (choice != 0);
 
-	        scanner.close();
+	        sc.close();
 	    }
 
 	    private Sach nhapThongTinSachCoBan() {
 	    	
 	        System.out.print("Nhập mã sách: ");
-	        int maSach = scanner.nextInt();
-	        scanner.nextLine();
+	        int maSach = sc.nextInt();
+	        sc.nextLine();
 	        boolean kiemTraMaSach = quanLySachController.kiemTraMaSachTrung(maSach);
 	        if(kiemTraMaSach) {
-	        	System.out.println("mã đã tồn tại trong danh sách");
+	        	System.out.println("Mã đã tồn tại trong danh sách");
 	        }else {
-	        	 System.out.print("Nhập ngày nhập (yyyy-MM-dd): ");
-	 	        String ngayNhap = scanner.nextLine();
+	        	System.out.println("Nhập ngày nhập (dd-MM-yyyy): ");
+	        	System.out.println("-------------------------------");
+	 	        System.out.println("Nhập ngày: ");
+	            int ngay = sc.nextInt();
+	            sc.nextLine();
+	            System.out.println("Nhập Tháng: ");
+	            int thang = sc.nextInt();
+	            System.out.println("Nhập Năm: ");
+	            int nam = sc.nextInt();
+	 	        Ngay ngayNhap = new Ngay(ngay ,thang, nam);
 	 	        
 	 	        System.out.print("Nhập đơn giá: ");
-	 	        double donGia = scanner.nextDouble();
+	 	        double donGia = sc.nextDouble();
 	 	        System.out.print("Nhập số lượng: ");
-	 	        int soLuong = scanner.nextInt();
-	 	        scanner.nextLine(); 
+	 	        int soLuong = sc.nextInt();
+	 	        sc.nextLine(); 
 	 	        System.out.print("Nhập nhà xuất bản: ");
-	 	        String nhaXuatBan = scanner.nextLine();
+	 	        String nhaXuatBan = sc.nextLine();
 
 	 	       return new Sach(maSach, ngayNhap, donGia, soLuong, nhaXuatBan);
 	        }
@@ -100,7 +109,7 @@ public class MenuUIConsole {
 	        Sach thongTinSach = nhapThongTinSachCoBan(); 
 	        if(thongTinSach !=null) {
 	        	 System.out.print("Tình trạng sách (1: mới, 2: cũ): ");
-            int tinhTrang = scanner.nextInt();
+            int tinhTrang = sc.nextInt();
             
 
 	        
@@ -124,7 +133,7 @@ public class MenuUIConsole {
 	    	Sach thongTinSach = nhapThongTinSachCoBan(); 
 	    	if(thongTinSach !=null) {
 	    		 System.out.print("Nhập thuế: ");
-	        double thue = scanner.nextDouble();
+	        double thue = sc.nextDouble();
 
 	        
 	        SachThamKhao sachThamKhao = new SachThamKhao(
@@ -144,7 +153,7 @@ public class MenuUIConsole {
 	    }
 	    private void xoaSach() {
 	        System.out.print("Nhập mã sách cần xóa: ");
-	        int maSach = scanner.nextInt();
+	        int maSach = sc.nextInt();
 	        boolean kiemTraMaSach = quanLySachController.kiemTraMaSachTrung(maSach);
 	        if(kiemTraMaSach) {
 	        	quanLySachController.xoaSach(maSach);
@@ -158,32 +167,40 @@ public class MenuUIConsole {
 
 	    private void suaSach() {
 	        System.out.print("Nhập mã sách cần sửa: ");
-	        int maSach = scanner.nextInt();
+	        int maSach = sc.nextInt();
 	        boolean kiemTraMaSach = quanLySachController.kiemTraMaSachTrung(maSach);
 	        if(kiemTraMaSach) {
 	        	 System.out.println("Nhập thông tin mới cho sách:");
-	        scanner.nextLine();
-	        System.out.print("Nhập ngày nhập (yyyy-MM-dd): ");
-	        String ngayNhap = scanner.nextLine();
+	        sc.nextLine();
+	    	System.out.print("Nhập ngày nhập (dd-MM-yyyy): ");
+        	System.out.print("-------------------------------");
+ 	        System.out.println("Nhập ngày: ");
+            int ngay = sc.nextInt();
+            sc.nextLine();
+            System.out.println("Nhập Tháng: ");
+            int thang = sc.nextInt();
+            System.out.println("Nhập Năm: ");
+            int nam = sc.nextInt();
+ 	        Ngay ngayNhap = new Ngay(ngay ,thang, nam);
 	        
 	        System.out.print("Nhập đơn giá: ");
-	        double donGia = scanner.nextDouble();
+	        double donGia = sc.nextDouble();
 	        System.out.print("Nhập số lượng: ");
-	        int soLuong = scanner.nextInt();
-	        scanner.nextLine(); // Clear the buffer
+	        int soLuong = sc.nextInt();
+	        sc.nextLine(); // Clear the buffer
 	        System.out.print("Nhập nhà xuất bản: ");
-	        String nhaXuatBan = scanner.nextLine();
+	        String nhaXuatBan = sc.nextLine();
 	        Sach sachMoi;
 	        System.out.print("Sách giáo khoa (1) hay sách tham khảo (2): ");
-	        int loaiSach = scanner.nextInt();
-	        scanner.nextLine(); // Clear the buffer
+	        int loaiSach = sc.nextInt();
+	        sc.nextLine(); // Clear the buffer
 	        if (loaiSach == 1) {
 	            System.out.print("Tình trạng sách (1: mới, 2: cũ): ");
-	            int tinhTrang = scanner.nextInt();
+	            int tinhTrang = sc.nextInt();
 	            sachMoi = new SachGiaoKhoa(maSach, ngayNhap, donGia, soLuong, nhaXuatBan, (tinhTrang == 1? true: false));
 	        } else {
 	            System.out.print("Nhập thuế: ");
-	            double thue = scanner.nextDouble();
+	            double thue = sc.nextDouble();
 	            sachMoi = new SachThamKhao(maSach, ngayNhap, donGia, soLuong, nhaXuatBan, thue);
 	        }
 	        quanLySachController.suaSach(maSach, sachMoi);
@@ -197,7 +214,7 @@ public class MenuUIConsole {
 
 	    private void timKiemSach() {
 	        System.out.print("Nhập mã sách cần tìm: ");
-	        int maSach = scanner.nextInt();
+	        int maSach = sc.nextInt();
 	        Sach sach = quanLySachController.timKiem(maSach);
 	        if (sach != null) {
 	            System.out.println("Thông tin sách: " + sach);
@@ -208,19 +225,19 @@ public class MenuUIConsole {
 
 	    private void tinhTongThanhTienTheoLoai() {
 	        System.out.print("Nhập loại sách (1:SachGiaoKhoa hoặc 2:SachThamKhao) Lưu ý: (nhập số 1 or 2): ");
-	        String loaiSach = scanner.nextLine();
+	        String loaiSach = sc.nextLine();
 
-	        float tongThanhTien = quanLySachController.tinhTongThanhTienTheoLoai(loaiSach);
+	        double tongThanhTien = quanLySachController.tinhTongThanhTienTheoLoai(loaiSach);
 	        System.out.println("Tổng thành tiền cho " + (loaiSach =="1" ?"Sach Giao Khoa" : "Sach tham khao")  + ": " + tongThanhTien);
 	    }
 
-	    private void tinhTrungBinhDonGiaSachThamKhao() {
+	    private void tinhTrungBinhDonGiaSTK() {
 	        System.out.println("Trung bình đơn giá sách tham khảo: " + quanLySachController.tinhTrungBinhDonGiaSachThamKhao());
 	    }
 
 	    private void xuatSachGiaoKhoaTheoNXB() {
 	        System.out.print("Nhập tên nhà xuất bản: ");
-	        String nhaXuatBan = scanner.nextLine();
+	        String nhaXuatBan = sc.nextLine();
 	        System.out.println("Danh sách sách giáo khoa của NXB " + nhaXuatBan + ":");
 	        quanLySachController.xuatSachGiaoKhoaTheoNXB(nhaXuatBan).forEach(System.out::println);
 	    }

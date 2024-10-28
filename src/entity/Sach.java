@@ -5,12 +5,12 @@ import java.util.Date;
 
 public class Sach {
 		protected int maSach;
-	    protected String ngayNhap;
+	    protected Ngay ngayNhap;
 	    protected double donGia;
 	    protected int soLuong;
 	    protected String nhaXuatBan;
  
-		public Sach(int maSach, String ngayNhap, double donGia, int soLuong, String nhaXuatBan) {
+		public Sach(int maSach, Ngay ngayNhap, double donGia, int soLuong, String nhaXuatBan) {
 			this.maSach = maSach;
 			this.ngayNhap = ngayNhap;
 			this.donGia = donGia;
@@ -26,10 +26,10 @@ public class Sach {
 		public void setMaSach(int maSach) {
 			this.maSach = maSach;
 		}
-		public String getNgayNhap() {
+		public Ngay getNgayNhap() {
 			return ngayNhap;
 		}
-		public void setNgayNhap(String ngayNhap) {
+		public void setNgayNhap(Ngay ngayNhap) {
 			this.ngayNhap = ngayNhap;
 		}
 		public double getDonGia() {

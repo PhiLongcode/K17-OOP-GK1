@@ -23,15 +23,18 @@ public class SachController {
 	        }
 	        return false;
 	    }
-	    
+	    //Method them sach
 		public void themSach(Sach sach) {
 	        danhSachSach.add(sach);
 	    }
-
+		 //Method xoa sach
 	    public void xoaSach(int maSach) {
-	        danhSachSach.removeIf(sach -> sach.getMaSach() == maSach);
-	    }
 
+	        if(danhSachSach.get(maSach).getMaSach() == maSach){
+	            danhSachSach.remove(maSach);
+	        }
+	    }
+	    //Method sua sach
 	    public void suaSach(int maSach, Sach sachDaSua) {
 	        for (int i = 0; i < danhSachSach.size(); i++) {
 	        	  if (danhSachSach.get(i).getMaSach() == maSach) { 
@@ -50,8 +53,8 @@ public class SachController {
 	        return null; 
 	    }
 
-	    public float tinhTongThanhTienTheoLoai(String loaiSach) {
-	        float tongThanhTien = 0;
+	    public double tinhTongThanhTienTheoLoai(String loaiSach) {
+	    	double tongThanhTien = 0;
 
 	        for (Sach sach : danhSachSach) {
 	            if (loaiSach.equals("1") && sach instanceof SachGiaoKhoa) {
@@ -77,12 +80,12 @@ public class SachController {
 	        return demSachThamKhao > 0 ? tongDonGia / demSachThamKhao : 0;
 	    }
 
-	    public ArrayList<SachGiaoKhoa> xuatSachGiaoKhoaTheoNXB(String nhaXuatBan) {
+	    public ArrayList<SachGiaoKhoa> xuatSachGiaoKhoaTheoNXB(String NXB) {
 	        ArrayList<SachGiaoKhoa> sachGiaoKhoaTheoNXB = new ArrayList<>();
 	        for (Sach sach : danhSachSach) {
 	            if (sach instanceof SachGiaoKhoa) {
 	                SachGiaoKhoa sachGiaoKhoa = (SachGiaoKhoa) sach;
-	                if (sachGiaoKhoa.getNhaXuatBan().equalsIgnoreCase(nhaXuatBan)) {
+	                if (sachGiaoKhoa.getNhaXuatBan().equalsIgnoreCase(NXB)) {
 	                    sachGiaoKhoaTheoNXB.add(sachGiaoKhoa);
 	                }
 	            }

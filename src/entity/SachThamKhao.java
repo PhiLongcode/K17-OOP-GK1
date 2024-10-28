@@ -3,12 +3,20 @@ package entity;
 public class SachThamKhao extends Sach {
     private double thue;
 
-    public SachThamKhao(int maSach, String ngayNhap, double donGia, int soLuong, String nhaXuatBan, double thue) {
+    public SachThamKhao(int maSach, Ngay ngayNhap, double donGia, int soLuong, String nhaXuatBan, double thue) {
         super(maSach, ngayNhap, donGia, soLuong, nhaXuatBan);
         this.thue = thue;
     }
+    
+    public double getThue() {
+		return thue;
+	}
 
-    public double tinhThanhTien() {
+	public void setThue(double thue) {
+		this.thue = thue;
+	}
+
+	public double tinhThanhTien() {
         return soLuong * donGia + thue;
     }
 
